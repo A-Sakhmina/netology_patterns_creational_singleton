@@ -7,39 +7,29 @@ public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         Logger logger = Logger.getInstance();
-        //[31.12.2019 15:38:22 1] Запускаем программу
+
         logger.log("Запускаем программу");
-        //[31.12.2019 15:38:22 2] Просим пользователя ввести входные данные для списка
+
         logger.log("Просим пользователя ввести входные данные для списка");
-        System.out.println("Введите размер списка:");
-        //Введите размер списка: 7
+        System.out.print("Введите размер списка: ");
         int listSize; //размер списка
         listSize = scanner.nextInt();
-        //Введите верхнюю границу для значений: 10
-        System.out.println("Введите верхнюю границу для значений");
+
+        System.out.print("Введите верхнюю границу для значений: ");
         int maxValue; //верхнюю границу для значений
         maxValue = scanner.nextInt();
-        //[31.12.2019 15:38:23 3] Создаём и наполняем список
-        logger.log("Создаём и наполняем список");
-        List<Integer> listValues = new ArrayList<>();
-        Random random = new Random();
-        for (int i = 0; i < listSize; i++) {
-            listValues.add(random.nextInt(maxValue));
-        }
-        //Вот случайный список: 3 5 5 1 0 3 6
-        System.out.println("Вот случайный список:");
-        for (int valueOfList : listValues) {
-            System.out.print(valueOfList);
-        }
-        System.out.println();
 
-        //[31.12.2019 15:38:23 4] Просим пользователя ввести входные данные для фильтрации
+        logger.log("Создаём и наполняем список");
+        List<Integer> listValues = randomList(listSize, maxValue);
+        //Выводим список
+        System.out.print("Вот случайный список: ");
+        printList(listValues);
+
         logger.log("Просим пользователя ввести входные данные для фильтрации");
-        //Введите порог для фильтра: 4
-        System.out.println("Введите порог для фильтра:");
+        System.out.print("Введите порог для фильтра: ");
         int filterValue;
         filterValue = scanner.nextInt();
-        //[31.12.2019 15:38:23 5] Запускаем фильтрацию
+
         logger.log("Запускаем фильтрацию");
         Filter filter = new Filter(filterValue);
         listValues = filter.filterOut(listValues);
@@ -49,13 +39,27 @@ public class Main {
         logger.log(String.format("Прошло фильтр %d элемента из %d", countFiltered, listSize));
 
         logger.log("Выводим результат на экран");
-        System.out.println("Отфильтрованный список:");
-        for (int valueOfList : listValues) {
-            System.out.print(valueOfList);
-        }
-        System.out.println();
+        System.out.print("Отфильтрованный список: ");
+        printList(listValues);
+
         logger.log("Завершаем программу");
 
 
+    }
+
+    private static List<Integer> randomList(int size, int maxValue) {
+        List<Integer> list = new ArrayList<>();
+        Random random = new Random();
+        for (int i = 0; i < size; i++) {
+            list.add(random.nextInt(maxValue));
+        }
+        return list;
+    }
+
+    private static void printList(List<Integer> list) {
+        for (int valueOfList : list) {
+            System.out.print(valueOfList + "\t");
+        }
+        System.out.println();
     }
 }
