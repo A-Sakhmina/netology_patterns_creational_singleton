@@ -1,8 +1,14 @@
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class Logger {
     protected int num = 1;
 
+
     public void log(String msg) {
-        System.out.println("[" + num++ + "] " + msg);
+        SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
+        Date date = new Date();
+        System.out.println("[" + formatter.format(date) + num++ + "] " + msg);
     }
 
     // В этом поле храним ссылку на тот
